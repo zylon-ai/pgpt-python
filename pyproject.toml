@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "pgpt_python"
+version = "0.1.0"
+description = "PrivateGPT Python SDK"
+authors = ["imartinez <ivanmartit@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+httpx = "^0.26.0"
+pydantic = "^2.5.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
