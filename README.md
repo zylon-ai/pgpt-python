@@ -1,4 +1,4 @@
-# pgpt_python: Python SDK for PrivateGPT API
+# Python SDK for PrivateGPT API
 
 **pgpt_python** is an open-source Python SDK designed to interact with the PrivateGPT API. PrivateGPT is a popular AI Open Source project that provides secure and private access to advanced natural language processing capabilities. This SDK simplifies the integration of PrivateGPT into Python applications, allowing developers to harness the power of PrivateGPT for various language-related tasks.
 
