@@ -1,20 +1,20 @@
-# pgpt-python: Python SDK for PrivateGPT API
+# pgpt_python: Python SDK for PrivateGPT API
 
-**pgpt-python** is an open-source Python SDK designed to interact with the PrivateGPT API. PrivateGPT is a popular AI Open Source project that provides secure and private access to advanced natural language processing capabilities. This SDK simplifies the integration of PrivateGPT into Python applications, allowing developers to harness the power of PrivateGPT for various language-related tasks.
+**pgpt_python** is an open-source Python SDK designed to interact with the PrivateGPT API. PrivateGPT is a popular AI Open Source project that provides secure and private access to advanced natural language processing capabilities. This SDK simplifies the integration of PrivateGPT into Python applications, allowing developers to harness the power of PrivateGPT for various language-related tasks.
 
 This SDK has been created using [Fern](https://buildwithfern.com/).
 
 ## Installation
 
-To install the pgpt-python SDK, use the following pip command:
+To install the pgpt_python SDK, use the following pip command:
 
 ```bash
-pip install pgpt-python
+pip install pgpt_python
 ```
 
 ## Getting Started
 
-To begin using pgpt-python with the PrivateGPT API, follow these steps:
+To begin using pgpt_python with the PrivateGPT API, follow these steps:
 
 1. **Import the PrivateGPTApi class:**
 
@@ -32,7 +32,7 @@ To begin using pgpt-python with the PrivateGPT API, follow these steps:
 
 ## Perform API Calls
 
-Once you have set up the PrivateGPTApi instance, you can perform various API calls using the pgpt-python SDK. Below are examples of common API calls:
+Once you have set up the PrivateGPTApi instance, you can perform various API calls using the pgpt_python SDK. Below are examples of common API calls:
 
 ### 1. **Health Check:**
 
@@ -190,7 +190,7 @@ Delete previously ingested documents using their document IDs.
 
 ## Examples
 
-The provided `examples_script.py` showcases various features of the pgpt-python SDK. Feel free to explore and modify this script to suit your specific use cases.
+The provided `examples_script.py` showcases various features of the pgpt_python SDK. Feel free to explore and modify this script to suit your specific use cases.
 
 ## Documentation
 
