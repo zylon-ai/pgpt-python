@@ -24,7 +24,7 @@ class IngestionClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def ingest(self, *, file: typing.IO) -> IngestResponse:
+    def ingest(self, *, file: typing.IO, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a file.
 
@@ -39,7 +39,7 @@ class IngestionClient:
             data=jsonable_encoder({}),
             files={"file": file},
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
@@ -51,7 +51,7 @@ class IngestionClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def ingest_file(self, *, file: typing.IO) -> IngestResponse:
+    def ingest_file(self, *, file: typing.IO, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a file, storing its chunks to be used as context.
 
@@ -77,7 +77,7 @@ class IngestionClient:
             data=jsonable_encoder({}),
             files={"file": file},
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
@@ -89,7 +89,7 @@ class IngestionClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def ingest_text(self, *, file_name: str, text: str) -> IngestResponse:
+    def ingest_text(self, *, file_name: str, text: str, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a text, storing its chunks to be used as context.
 
@@ -112,7 +112,7 @@ class IngestionClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/ingest/text"),
             json=jsonable_encoder({"file_name": file_name, "text": text}),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
@@ -176,7 +176,7 @@ class AsyncIngestionClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def ingest(self, *, file: typing.IO) -> IngestResponse:
+    async def ingest(self, *, file: typing.IO, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a file.
 
@@ -191,7 +191,7 @@ class AsyncIngestionClient:
             data=jsonable_encoder({}),
             files={"file": file},
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
@@ -203,7 +203,7 @@ class AsyncIngestionClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def ingest_file(self, *, file: typing.IO) -> IngestResponse:
+    async def ingest_file(self, *, file: typing.IO, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a file, storing its chunks to be used as context.
 
@@ -229,7 +229,7 @@ class AsyncIngestionClient:
             data=jsonable_encoder({}),
             files={"file": file},
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
@@ -241,7 +241,7 @@ class AsyncIngestionClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def ingest_text(self, *, file_name: str, text: str) -> IngestResponse:
+    async def ingest_text(self, *, file_name: str, text: str, timeout: int = 60) -> IngestResponse:
         """
         Ingests and processes a text, storing its chunks to be used as context.
 
@@ -264,7 +264,7 @@ class AsyncIngestionClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/ingest/text"),
             json=jsonable_encoder({"file_name": file_name, "text": text}),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(IngestResponse, _response.json())  # type: ignore
