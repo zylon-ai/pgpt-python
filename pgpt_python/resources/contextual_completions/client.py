@@ -38,6 +38,7 @@ class ContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[True] = True,
+        timeout: int = 60,
     ) -> typing.Iterator[OpenAiCompletion]:
         """
         We recommend most users use our Chat completions API.
@@ -88,10 +89,12 @@ class ContextualCompletionsClient:
             _request["include_sources"] = include_sources
         with self._client_wrapper.httpx_client.stream(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _text in _response.iter_lines():
@@ -124,6 +127,7 @@ class ContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[False] = False,
+        timeout: int = 60,
     ) -> OpenAiCompletion:
         """
         We recommend most users use our Chat completions API.
@@ -174,15 +178,19 @@ class ContextualCompletionsClient:
             _request["include_sources"] = include_sources
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpenAiCompletion, _response.json())  # type: ignore
         if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+            raise UnprocessableEntityError(
+                pydantic.parse_obj_as(HttpValidationError, _response.json())
+            )  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -197,6 +205,7 @@ class ContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[True] = True,
+        timeout: int = 60,
     ) -> typing.Iterator[OpenAiCompletion]:
         """
         Given a list of messages comprising a conversation, return a response.
@@ -232,7 +241,10 @@ class ContextualCompletionsClient:
 
             - stream: typing_extensions.Literal[True].
         """
-        _request: typing.Dict[str, typing.Any] = {"messages": messages, "stream": stream}
+        _request: typing.Dict[str, typing.Any] = {
+            "messages": messages,
+            "stream": stream,
+        }
         if use_context is not OMIT:
             _request["use_context"] = use_context
         if context_filter is not OMIT:
@@ -241,10 +253,12 @@ class ContextualCompletionsClient:
             _request["include_sources"] = include_sources
         with self._client_wrapper.httpx_client.stream(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _text in _response.iter_lines():
@@ -276,6 +290,7 @@ class ContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[False] = False,
+        timeout: int = 60,
     ) -> OpenAiCompletion:
         """
         Given a list of messages comprising a conversation, return a response.
@@ -311,7 +326,10 @@ class ContextualCompletionsClient:
 
             - stream: typing_extensions.Literal[False].
         """
-        _request: typing.Dict[str, typing.Any] = {"messages": messages, "stream": stream}
+        _request: typing.Dict[str, typing.Any] = {
+            "messages": messages,
+            "stream": stream,
+        }
         if use_context is not OMIT:
             _request["use_context"] = use_context
         if context_filter is not OMIT:
@@ -320,15 +338,19 @@ class ContextualCompletionsClient:
             _request["include_sources"] = include_sources
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpenAiCompletion, _response.json())  # type: ignore
         if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+            raise UnprocessableEntityError(
+                pydantic.parse_obj_as(HttpValidationError, _response.json())
+            )  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -349,6 +371,7 @@ class AsyncContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[True] = True,
+        timeout: int = 60,
     ) -> typing.AsyncIterator[OpenAiCompletion]:
         """
         We recommend most users use our Chat completions API.
@@ -399,10 +422,12 @@ class AsyncContextualCompletionsClient:
             _request["include_sources"] = include_sources
         async with self._client_wrapper.httpx_client.stream(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _text in _response.aiter_lines():
@@ -435,6 +460,7 @@ class AsyncContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[False] = False,
+        timeout: int = 60,
     ) -> OpenAiCompletion:
         """
         We recommend most users use our Chat completions API.
@@ -485,15 +511,19 @@ class AsyncContextualCompletionsClient:
             _request["include_sources"] = include_sources
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpenAiCompletion, _response.json())  # type: ignore
         if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+            raise UnprocessableEntityError(
+                pydantic.parse_obj_as(HttpValidationError, _response.json())
+            )  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -508,6 +538,7 @@ class AsyncContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[True] = True,
+        timeout: int = 60,
     ) -> typing.AsyncIterator[OpenAiCompletion]:
         """
         Given a list of messages comprising a conversation, return a response.
@@ -543,7 +574,10 @@ class AsyncContextualCompletionsClient:
 
             - stream: typing_extensions.Literal[True].
         """
-        _request: typing.Dict[str, typing.Any] = {"messages": messages, "stream": stream}
+        _request: typing.Dict[str, typing.Any] = {
+            "messages": messages,
+            "stream": stream,
+        }
         if use_context is not OMIT:
             _request["use_context"] = use_context
         if context_filter is not OMIT:
@@ -552,10 +586,12 @@ class AsyncContextualCompletionsClient:
             _request["include_sources"] = include_sources
         async with self._client_wrapper.httpx_client.stream(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _text in _response.aiter_lines():
@@ -587,6 +623,7 @@ class AsyncContextualCompletionsClient:
         context_filter: typing.Optional[ContextFilter] = OMIT,
         include_sources: typing.Optional[bool] = OMIT,
         stream: typing_extensions.Literal[False] = False,
+        timeout: int = 60,
     ) -> OpenAiCompletion:
         """
         Given a list of messages comprising a conversation, return a response.
@@ -622,7 +659,10 @@ class AsyncContextualCompletionsClient:
 
             - stream: typing_extensions.Literal[False].
         """
-        _request: typing.Dict[str, typing.Any] = {"messages": messages, "stream": stream}
+        _request: typing.Dict[str, typing.Any] = {
+            "messages": messages,
+            "stream": stream,
+        }
         if use_context is not OMIT:
             _request["use_context"] = use_context
         if context_filter is not OMIT:
@@ -631,15 +671,19 @@ class AsyncContextualCompletionsClient:
             _request["include_sources"] = include_sources
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "v1/chat/completions"
+            ),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=timeout,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpenAiCompletion, _response.json())  # type: ignore
         if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+            raise UnprocessableEntityError(
+                pydantic.parse_obj_as(HttpValidationError, _response.json())
+            )  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
