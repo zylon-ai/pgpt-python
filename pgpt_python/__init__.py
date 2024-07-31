@@ -19,6 +19,7 @@ from .types import (
     OpenAiDelta,
     OpenAiMessage,
     OpenAiMessageRole,
+    SummarizeResponse,
     ValidationError,
     ValidationErrorLocItem,
 )
@@ -44,6 +45,7 @@ __all__ = [
     "OpenAiDelta",
     "OpenAiMessage",
     "OpenAiMessageRole",
+    "SummarizeResponse",
     "UnprocessableEntityError",
     "ValidationError",
     "ValidationErrorLocItem",

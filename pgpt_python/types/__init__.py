@@ -18,6 +18,7 @@ from .open_ai_completion_object import OpenAiCompletionObject
 from .open_ai_delta import OpenAiDelta
 from .open_ai_message import OpenAiMessage
 from .open_ai_message_role import OpenAiMessageRole
+from .summarize_response import SummarizeResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
 
@@ -40,6 +41,7 @@ __all__ = [
     "OpenAiDelta",
     "OpenAiMessage",
     "OpenAiMessageRole",
+    "SummarizeResponse",
     "ValidationError",
     "ValidationErrorLocItem",
 ]

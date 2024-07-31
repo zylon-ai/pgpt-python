@@ -8,6 +8,7 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .resources.context_chunks.client import AsyncContextChunksClient, ContextChunksClient
 from .resources.contextual_completions.client import AsyncContextualCompletionsClient, ContextualCompletionsClient
 from .resources.embeddings.client import AsyncEmbeddingsClient, EmbeddingsClient
+from .resources.recipes.client import AsyncRecipesClient, RecipesClient
 from .resources.health.client import AsyncHealthClient, HealthClient
 from .resources.ingestion.client import AsyncIngestionClient, IngestionClient
 
@@ -23,6 +24,7 @@ class PrivateGPTApi:
         self.context_chunks = ContextChunksClient(client_wrapper=self._client_wrapper)
         self.ingestion = IngestionClient(client_wrapper=self._client_wrapper)
         self.embeddings = EmbeddingsClient(client_wrapper=self._client_wrapper)
+        self.recipes = RecipesClient(client_wrapper=self._client_wrapper)
         self.health = HealthClient(client_wrapper=self._client_wrapper)
 
 
@@ -41,4 +43,5 @@ class AsyncPrivateGPTApi:
         self.context_chunks = AsyncContextChunksClient(client_wrapper=self._client_wrapper)
         self.ingestion = AsyncIngestionClient(client_wrapper=self._client_wrapper)
         self.embeddings = AsyncEmbeddingsClient(client_wrapper=self._client_wrapper)
+        self.recipes = AsyncRecipesClient(client_wrapper=self._client_wrapper)
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
