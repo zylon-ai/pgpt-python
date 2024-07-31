@@ -97,3 +97,34 @@ print("\n>Deletion of ingested document")
 client.ingestion.delete_ingested(ingested_text_doc_id)
 client.ingestion.delete_ingested(ingested_file_doc_id)
 print("\nDeletion done")
+
+# Recipes
+
+# Sync summarization
+print("\n>Sync summarization")
+print(
+    client.recipes.summarize.summarize(
+        text=(
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+            "when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
+        ),
+        instructions=(
+            "Summarize the text to 1 sentence."
+        )
+    ).summary
+)
+
+print("\n>Async summarization")
+for i in client.recipes.summarize.summarize_stream(
+    text=(
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+        "when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
+    ),
+    instructions=(
+        "Summarize the text to 1 sentence."
+    )
+):
+    # Print  content in an incremental way
+    print(i.choices[0].delta.content, end="")
