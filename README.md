@@ -188,6 +188,49 @@ client.ingestion.delete_ingested("e2989f56-1729-4557-b30a-e4b023628629")
 
 Delete previously ingested documents using their document IDs.
 
+### 13.  Recipes
+
+The SDK also provides functionality for defined use cases called [`recipes`](https://docs.privategpt.dev/recipes/getting-started/quickstart).
+
+#### 1. Summarize recipe
+Summarize is a recipe that you will be able to summarise ingest a text on the spot or stored files. You will be able to enter extra instructions, customize the system prompt or define a file context to filter which files will be used to generate the summary.
+
+##### Summarize
+```python
+summary_result = client.recipes.summarize.summarize(
+    text=(
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+        "when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    ),
+    instructions=(
+        "Summarize the text to 1 sentence."
+    )
+)
+print(summary_result.summary)
+
+> Lorem Ipsum has been a standard dummy text in the printing industry since the 1500s.
+```
+
+##### Streaming summarize
+
+```python
+for i in client.recipes.summarize.summarize_stream(
+    text=(
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+        "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+        "when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    ),
+    instructions=(
+        "Summarize the text to 1 sentence."
+    )
+):
+    # Print content in an incremental way
+    print(i.choices[0].delta.content, end="")
+
+> Lorem Ipsum has been a standard dummy text...
+```
+
 ## Examples
 
 The provided `examples_script.py` showcases various features of the pgpt_python SDK. Feel free to explore and modify this script to suit your specific use cases.
